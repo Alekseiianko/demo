@@ -1,0 +1,14 @@
+pluginManagement {
+    repositories {
+        maven {
+            url "http://sbtnexus.delta.sbrf.ru:8081/nexus/content/repositories/central/"
+            allowInsecureProtocol = true
+        }
+        maven {
+            url "http://sbtnexus.delta.sbrf.ru:8081/nexus/content/repositories/gradle_plugins_proxy/"
+            allowInsecureProtocol = true
+        }
+    }
+}
+
+rootProject.name = 'demo'

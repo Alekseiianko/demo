@@ -1,0 +1,76 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.2'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id "org.sonarqube" version "2.7"
+	id 'java'
+}
+
+group = 'ru.sberbank.dbpm'
+version = '1.2.0'
+sourceCompatibility = '11'
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile) {
+	options.encoding = 'UTF-8'
+}
+
+ext {
+	set('springCloudVersion', "2020.0.4")
+}
+repositories {
+	maven {
+		url "http://sbtnexus.delta.sbrf.ru:8081/nexus/content/repositories/central/"
+		allowInsecureProtocol = true
+	}
+}
+
+configurations {
+	integrationTestImplementation.extendsFrom testImplementation
+	integrationTestRuntime.extendsFrom testRuntime
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-jpa
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+
+}
+
+
+test {
+	useJUnitPlatform()
+}
+
+sourceSets {
+	integrationTest {
+		java.srcDir file("src/integrationTest/java")
+		resources.srcDir file("src/integrationTest/resources")
+		compileClasspath += sourceSets.main.output + configurations.testRuntime
+		runtimeClasspath += output + compileClasspath
+	}
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
+
+tasks.withType(Copy).all {
+	duplicatesStrategy 'exclude'
+}
+
+task integrationTest(type: Test) {
+	description = 'Runs the integration tests.'
+	group = 'verification'
+	testClassesDirs = sourceSets.integrationTest.output.classesDirs
+	classpath = sourceSets.integrationTest.runtimeClasspath
+
+	useJUnitPlatform()
+
+	reports {
+		html.enabled true
+		junitXml.enabled = true
+	}
+}
