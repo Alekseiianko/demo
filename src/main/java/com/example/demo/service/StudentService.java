@@ -5,6 +5,7 @@ import com.example.demo.dto.response.StudentResponse;
 import com.example.demo.entity.Gender;
 import com.example.demo.entity.Student;
 import com.example.demo.repository.StudentRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -12,13 +13,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@RequiredArgsConstructor
 public class StudentService {
 
     private final StudentRepository studentRepository;
-
-    public StudentService(StudentRepository studentRepository) {
-        this.studentRepository = studentRepository;
-    }
 
     public List<Student> findStudentsBySomeName(String name) {
         List<Student> students = studentRepository.findByCustomParams(name);

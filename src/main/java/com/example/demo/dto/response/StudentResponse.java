@@ -27,4 +27,20 @@ public class StudentResponse {
     public void setCourseId(Long courseId) {
         this.courseId = courseId;
     }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public Gender getGender() {
+        return gender;
+    }
+
+    public Long getCourseId() {
+        return courseId;
+    }
 }

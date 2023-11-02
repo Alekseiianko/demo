@@ -4,6 +4,8 @@ import com.example.demo.dto.request.StudentRequest;
 import com.example.demo.dto.response.StudentResponse;
 import com.example.demo.entity.Gender;
 import com.example.demo.service.StudentService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -17,16 +19,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/students") //*address*/students/get-by-gender
+@RequiredArgsConstructor
 public class StudentController {
 
     private final StudentService service;
 
-    public StudentController(StudentService service) {
-        this.service = service;
-    }
-
-    @GetMapping("/get-by-gender") // url/get-by-gender?name=:name
+    @GetMapping("/get-by-gender")
     public List<StudentResponse> findByGender(@RequestParam Gender gender) {
         return service.findByGender(gender);
     }

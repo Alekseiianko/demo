@@ -1,11 +1,9 @@
 package com.example.demo.dto.request;
 
 import com.example.demo.entity.Gender;
+import lombok.Data;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.Transient;
-
+@Data
 public class StudentRequest {
 
     private String name;
@@ -13,16 +11,4 @@ public class StudentRequest {
     private Gender gender;
 
     private Long courseId;
-
-    public String getName() {
-        return name;
-    }
-
-    public Gender getGender() {
-        return gender;
-    }
-
-    public Long getCourseId() {
-        return courseId;
-    }
 }

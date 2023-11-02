@@ -19,7 +19,7 @@ public class Course {
     private String name;
 
     @OneToMany(mappedBy = "course")
-    List<Student> students;
+    private List<Student> students;
 
     public Long getId() {
         return id;
