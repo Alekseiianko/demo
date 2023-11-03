@@ -19,4 +19,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     List<Student> findByCustomParams(String name);
 
     List<Student> findByGender(Gender gender);
+
+
 }
